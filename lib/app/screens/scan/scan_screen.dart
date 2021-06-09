@@ -16,7 +16,7 @@ class _ScanScreenState extends State<ScanScreen> {
   List<CameraDescription> cameras = [];
 
   //type de variable permettant de sauvegarder les données d'un image capturée
-  XFile? capturedImage;
+  late XFile capturedImage;
 
   List<XFile> capturedImagesList = [];
 
@@ -52,13 +52,14 @@ class _ScanScreenState extends State<ScanScreen> {
   capturePicture() async {
     if (controller!.value.isTakingPicture) {
       capturedImage = await controller!.takePicture();
-      addPictureToList(capturedImage!.path);
+      addPictureToList(capturedImage);
       setState(() {});
     }
   }
 
-  addPictureToList(String path) {
+  addPictureToList(XFile  path) {
     //add new captured image to the list (capturedImagesList)
+    capturedImagesList.insert(0, path);
   }
 
   @override
